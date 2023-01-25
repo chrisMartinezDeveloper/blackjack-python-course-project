@@ -91,6 +91,7 @@ def calcCardTotal(cardsInHand):
     cardTotal = sum(cardsInHand)
     if len(cardsInHand) == 2:
         if cardTotal == 21:
+            userOutcome = "blackjack"
             shouldContinueRound = False
             return cardTotal
         if 11 in cardsInHand and cardTotal > 21:
@@ -119,7 +120,7 @@ while shouldContinueGame:
         print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
-        if userChoice.lower() == "hit":
+        if userChoice.lower() == "hit" and userOutcome != "blackjack":
             userCards.append(getCard())
             calcCardTotal(userCards)
         if userChoice.lower() == "stand":
