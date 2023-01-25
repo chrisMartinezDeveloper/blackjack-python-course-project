@@ -65,9 +65,6 @@
 
 ## //////////////////// ##
 # Start of My Code
-# - Initially coded without instructor/course hints
-# - Minimal refactoring with instructor/course solution
-#   - Added withh refactoring: dealCards(), sum()
 # -----
 import random
 from art import logo
@@ -91,6 +88,8 @@ def dealCards():
 
 # Function - adds up the cards in hand
 def getCardTotal(cardsInHand):
+    if sum(cardsInHand) == 21 and len(cardsInHand) == 2:
+        return
     return sum(cardsInHand)
 
 while shouldContinueGame:
