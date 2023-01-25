@@ -96,6 +96,7 @@ while shouldContinue:
     print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
 
     userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
+    userTotal = getCardTotal(userCards)
     if userChoice.lower() == "hit":
         userCards.append(getCard())
         userTotal = getCardTotal(userCards)
@@ -104,6 +105,7 @@ while shouldContinue:
             if input("Type 'stand', if you would like to stand: ") == "stand":
                 shouldContinue = False
         if userTotal > 21:
+            print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
             userOutcome = "loss"
             shouldContinue = False
     if userChoice.lower() == "stand":
@@ -112,7 +114,7 @@ while shouldContinue:
 dealerTotal = getCardTotal(dealerCards)
 print(f'\nDealer\'s cards: {dealerCards} -> {dealerTotal}')
 if userOutcome != "loss":
-    if dealerTotal <= 16:
+    if dealerTotal < 17:
         dealerCards.append(getCard())
         dealerTotal = getCardTotal(dealerCards)
         print("The dealer must draw another card because his hand is less than 17.")
