@@ -88,16 +88,24 @@ def dealCards():
 
 # Function - adds up the cards in hand
 def calcCardTotal(cardsInHand):
+    cardTotal = sum(cardsInHand)
     if len(cardsInHand) == 2:
-        if sum(cardsInHand) == 21:
-            userOutcome = "blackjack"
+        if cardTotal == 21:
             shouldContinueRound = False
-            return 21
-        if 11 in cardsInHand and sum(cardsInHand) > 21:
-            print("You were dealt an ace which will count as 1 to avoid going over 21.")
+            return cardTotal
+        if 11 in cardsInHand and cardTotal > 21:
+            print("You were dealt an ace which will count as 1 instead of 11 to avoid going over 21.")
             cardsInHand.append(1)
             cardsInHand.remove(11)      
-            return sum(cardsInHand)
+            return cardTotal
+    if cardTotal == 21:
+        print(f'\nYour cards {cardsInHand} equal 21.')
+        if input("Type 'stand', if you would like to stand: ") == "stand":
+            shouldContinueRound = False
+    if userTotal > 21:
+        print(f'Your cards: {cardsInHand} -> {cardTotal}')
+        userOutcome = "loss"
+        shouldContinueRound = False
 
 while shouldContinueGame:
     dealCards()
@@ -111,18 +119,9 @@ while shouldContinueGame:
         print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
-        userTotal = calcCardTotal(userCards)
         if userChoice.lower() == "hit":
             userCards.append(getCard())
-            userTotal = calcCardTotal(userCards)
-            if userTotal == 21:
-                print(f'\nYour cards {userCards} equal 21.')
-                if input("Type 'stand', if you would like to stand: ") == "stand":
-                    shouldContinueRound = False
-            if userTotal > 21:
-                print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
-                userOutcome = "loss"
-                shouldContinueRound = False
+            calcCardTotal(userCards)
         if userChoice.lower() == "stand":
             shouldContinueRound = False
 
