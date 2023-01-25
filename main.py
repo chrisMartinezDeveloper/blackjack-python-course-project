@@ -100,16 +100,6 @@ def calcCardTotal(cardsInHand):
             cardsInHand.remove(11)      
             return cardTotal
 
-    if cardTotal == 21:
-        print(f'\nYour cards {cardsInHand} equal 21.')
-        if input("Type 'stand', if you would like to stand: ") == "stand":
-            shouldContinueRound = False
-    if cardTotal > 21:
-        print(f'Your cards: {cardsInHand} -> {cardTotal}')
-        userOutcome = "loss"
-        shouldContinueRound = False
-        return
-
     return cardTotal
 
 while shouldContinueGame:
@@ -121,12 +111,22 @@ while shouldContinueGame:
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
     while shouldContinueRound:
-        print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
+        userCardTotal = calcCardTotal(userCards)
+        print(f'Your cards: {userCards} -> {userCardTotal}')
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
         if userChoice.lower() == "hit" and userOutcome != "blackjack":
             userCards.append(getCard())
             calcCardTotal(userCards)
+
+            if userCardTotal == 21:
+                print(f'\nYour cards {userCards} equal 21.')
+                if input("Type 'stand', if you would like to stand: ") == "stand":
+                    shouldContinueRound = False
+            if userCardTotal > 21:
+                print(f'Your cards: {userCards} -> {userCardTotal}')
+                userOutcome = "loss"
+                shouldContinueRound = False
         if userChoice.lower() == "stand":
             shouldContinueRound = False
 
