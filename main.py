@@ -63,7 +63,7 @@
 
 #Hint 14: Ask the user if they want to restart the game. If they answer yes, clear the console and start a new game of blackjack and show the logo from art.py.
 
-# ////////////////////
+### //////////////////// ###
 # Start of My Code
 # - Coded without instructor/course hints
 # -----
@@ -72,12 +72,19 @@ from art import logo
 print(logo)
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+userCards = []
+dealerCards = []
 shouldContinueGame = True
 shouldContinueRound = True
 
 # Function - get a card
 def getCard():
     return cards[random.randint(0, 12)]
+
+# Function - deals the starting cards
+def dealCards():
+    userCards = [getCard(), getCard()]
+    dealerCards = [getCard(), getCard()]
 
 # Function - adds up the cards in hand
 def getCardTotal(cardsInHand):
@@ -87,8 +94,7 @@ def getCardTotal(cardsInHand):
     return cardTotal
 
 while shouldContinueGame:
-    userCards = [getCard(), getCard()]
-    dealerCards = [getCard(), getCard()]
+    dealCards()
     userTotal = 0
     userOutcome = ""
     dealerOutcome = ""
