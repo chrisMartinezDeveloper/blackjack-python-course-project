@@ -71,7 +71,8 @@ from art import logo
 print(logo)
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-shouldContinue = True
+shouldContinueGame = True
+shouldContinueRound = True
 
 # Function - get a card
 def getCard():
@@ -84,48 +85,54 @@ def getCardTotal(cardsInHand):
         cardTotal += card
     return cardTotal
 
-userCards = [getCard(), getCard()]
-dealerCards = [getCard(), getCard()]
-userTotal = 0
-userOutcome = ""
-dealerOutcome = ""
+while shouldContinueGame:
+    userCards = [getCard(), getCard()]
+    dealerCards = [getCard(), getCard()]
+    userTotal = 0
+    userOutcome = ""
+    dealerOutcome = ""
 
-print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
+    print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
-while shouldContinue:
-    print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
+    while shouldContinueRound:
+        print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
 
-    userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
-    userTotal = getCardTotal(userCards)
-    if userChoice.lower() == "hit":
-        userCards.append(getCard())
+        userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
         userTotal = getCardTotal(userCards)
-        if userTotal == 21:
-            print(f'\nYour cards {userCards} equal 21.')
-            if input("Type 'stand', if you would like to stand: ") == "stand":
-                shouldContinue = False
-        if userTotal > 21:
-            print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
-            userOutcome = "loss"
-            shouldContinue = False
-    if userChoice.lower() == "stand":
-        shouldContinue = False
+        if userChoice.lower() == "hit":
+            userCards.append(getCard())
+            userTotal = getCardTotal(userCards)
+            if userTotal == 21:
+                print(f'\nYour cards {userCards} equal 21.')
+                if input("Type 'stand', if you would like to stand: ") == "stand":
+                    shouldContinueRound = False
+            if userTotal > 21:
+                print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
+                userOutcome = "loss"
+                shouldContinueRound = False
+        if userChoice.lower() == "stand":
+            shouldContinueRound = False
 
-dealerTotal = getCardTotal(dealerCards)
-print(f'\nDealer\'s cards: {dealerCards} -> {dealerTotal}')
-if userOutcome != "loss":
-    if dealerTotal < 17:
-        dealerCards.append(getCard())
-        dealerTotal = getCardTotal(dealerCards)
-        print("The dealer must draw another card because his hand is less than 17.")
-        print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
-    if dealerTotal > 21:
-        print("You win! The dealer's hand is more than 21.")
-    elif dealerTotal > userTotal:
-        print("You lose! The dealer's hand is greater than yours.")
-    elif dealerTotal < userTotal:
-        print("You win! Your hand is greater than the dealer's.")
-    elif dealerTotal == userTotal:
-        print("It's a draw! Your hand equals the dealer's.") 
-else:
-    print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
+    dealerTotal = getCardTotal(dealerCards)
+    print(f'\nDealer\'s cards: {dealerCards} -> {dealerTotal}')
+    if userOutcome != "loss":
+        if dealerTotal < 17:
+            dealerCards.append(getCard())
+            dealerTotal = getCardTotal(dealerCards)
+            print("The dealer must draw another card because his hand is less than 17.")
+            print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
+        if dealerTotal > 21:
+            print("You win! The dealer's hand is more than 21.")
+        elif dealerTotal > userTotal:
+            print("You lose! The dealer's hand is greater than yours.")
+        elif dealerTotal < userTotal:
+            print("You win! Your hand is greater than the dealer's.")
+        elif dealerTotal == userTotal:
+            print("It's a draw! Your hand equals the dealer's.") 
+    else:
+        print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
+
+    if input("\nWould you like to play another round (yes/no): ") == "no":
+        shouldContinueGame = False
+    else:
+        shouldContinueRound = True
