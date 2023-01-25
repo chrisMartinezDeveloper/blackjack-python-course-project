@@ -99,14 +99,18 @@ def calcCardTotal(cardsInHand):
             cardsInHand.append(1)
             cardsInHand.remove(11)      
             return cardTotal
+
     if cardTotal == 21:
         print(f'\nYour cards {cardsInHand} equal 21.')
         if input("Type 'stand', if you would like to stand: ") == "stand":
             shouldContinueRound = False
-    if userTotal > 21:
+    if cardTotal > 21:
         print(f'Your cards: {cardsInHand} -> {cardTotal}')
         userOutcome = "loss"
         shouldContinueRound = False
+        return
+
+    return cardTotal
 
 while shouldContinueGame:
     dealCards()
