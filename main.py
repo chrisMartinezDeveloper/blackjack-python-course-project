@@ -65,7 +65,9 @@
 
 ## //////////////////// ##
 # Start of My Code
-# - Coded without instructor/course hints
+# - Initially coded without instructor/course hints
+# - Minimal refactoring with instructor/course solution
+#   - Added withh refactoring: dealCards(), sum()
 # -----
 import random
 from art import logo
