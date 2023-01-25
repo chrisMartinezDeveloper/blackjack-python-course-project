@@ -121,6 +121,7 @@ while shouldContinueGame:
             dealerTotal = getCardTotal(dealerCards)
             print("The dealer must draw another card because his hand is less than 17.")
             print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
+        
         if dealerTotal > 21:
             print("You win! The dealer's hand is more than 21.")
         elif dealerTotal > userTotal:
