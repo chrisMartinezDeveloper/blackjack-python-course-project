@@ -87,10 +87,17 @@ def dealCards():
         dealerCards.append(getCard())
 
 # Function - adds up the cards in hand
-def getCardTotal(cardsInHand):
-    if sum(cardsInHand) == 21 and len(cardsInHand) == 2:
-        return
-    return sum(cardsInHand)
+def calcCardTotal(cardsInHand):
+    if len(cardsInHand) == 2:
+        if sum(cardsInHand) == 21:
+            userOutcome = "blackjack"
+            shouldContinueRound = False
+            return 21
+        if 11 in cardsInHand and sum(cardsInHand) > 21:
+            print("You were dealt an ace which will count as 1 to avoid going over 21.")
+            cardsInHand.append(1)
+            cardsInHand.remove(11)      
+            return sum(cardsInHand)
 
 while shouldContinueGame:
     dealCards()
@@ -101,30 +108,30 @@ while shouldContinueGame:
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
     while shouldContinueRound:
-        print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
+        print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
-        userTotal = getCardTotal(userCards)
+        userTotal = calcCardTotal(userCards)
         if userChoice.lower() == "hit":
             userCards.append(getCard())
-            userTotal = getCardTotal(userCards)
+            userTotal = calcCardTotal(userCards)
             if userTotal == 21:
                 print(f'\nYour cards {userCards} equal 21.')
                 if input("Type 'stand', if you would like to stand: ") == "stand":
                     shouldContinueRound = False
             if userTotal > 21:
-                print(f'Your cards: {userCards} -> {getCardTotal(userCards)}')
+                print(f'Your cards: {userCards} -> {calcCardTotal(userCards)}')
                 userOutcome = "loss"
                 shouldContinueRound = False
         if userChoice.lower() == "stand":
             shouldContinueRound = False
 
-    dealerTotal = getCardTotal(dealerCards)
+    dealerTotal = calcCardTotal(dealerCards)
     print(f'\nDealer\'s cards: {dealerCards} -> {dealerTotal}')
     if userOutcome != "loss":
         if dealerTotal < 17:
             dealerCards.append(getCard())
-            dealerTotal = getCardTotal(dealerCards)
+            dealerTotal = calcCardTotal(dealerCards)
             print("The dealer must draw another card because his hand is less than 17.")
             print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
         
