@@ -83,15 +83,13 @@ def getCard():
 
 # Function - deals the starting cards
 def dealCards():
-    userCards = [getCard(), getCard()]
-    dealerCards = [getCard(), getCard()]
+    for _ in range(2):
+        userCards.append(getCard())
+        dealerCards.append(getCard())
 
 # Function - adds up the cards in hand
 def getCardTotal(cardsInHand):
-    cardTotal = 0
-    for card in cardsInHand:
-        cardTotal += card
-    return cardTotal
+    return sum(cardsInHand)
 
 while shouldContinueGame:
     dealCards()
