@@ -73,6 +73,8 @@ print(logo)
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 userCards = []
 dealerCards = []
+userOutcome = ""
+dealerOutcome = ""
 shouldContinueGame = True
 shouldContinueRound = True
 
@@ -105,26 +107,24 @@ def calcCardTotal(cardsInHand):
 while shouldContinueGame:
     dealCards()
     userTotal = 0
-    userOutcome = ""
-    dealerOutcome = ""
 
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
     while shouldContinueRound:
-        userCardTotal = calcCardTotal(userCards)
-        print(f'Your cards: {userCards} -> {userCardTotal}')
+        userTotal = calcCardTotal(userCards)
+        print(f'Your cards: {userCards} -> {userTotal}')
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
         if userChoice.lower() == "hit" and userOutcome != "blackjack":
             userCards.append(getCard())
             calcCardTotal(userCards)
 
-            if userCardTotal == 21:
+            if userTotal == 21:
                 print(f'\nYour cards {userCards} equal 21.')
                 if input("Type 'stand', if you would like to stand: ") == "stand":
                     shouldContinueRound = False
-            if userCardTotal > 21:
-                print(f'Your cards: {userCards} -> {userCardTotal}')
+            if userTotal > 21:
+                print(f'Your cards: {userCards} -> {userTotal}')
                 userOutcome = "loss"
                 shouldContinueRound = False
         if userChoice.lower() == "stand":
@@ -153,4 +153,6 @@ while shouldContinueGame:
     if input("\nWould you like to play another round (yes/no): ") == "no":
         shouldContinueGame = False
     else:
+        userOutcome = ""
+        dealerOutcome = ""
         shouldContinueRound = True
