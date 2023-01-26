@@ -65,7 +65,6 @@
 
 ## //////////////////// ##
 # Start of My Code
-# - Coded without course hints
 # -----
 import random
 from art import logo
