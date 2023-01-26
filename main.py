@@ -78,7 +78,7 @@ dealerTotal = 0
 shouldContinueRound = True
 shouldContinueGame = True
 
-# Function - get a card
+# Function - gets a card
 def getCard():
     return cards[random.randint(0, 12)]
 
@@ -100,7 +100,7 @@ def calcCardTotal(cardsInHand):
             cardsInHand.remove(11)
     return cardTotal
 
-# Function - reset game
+# Function - resets game
 def resetGame():
     userCards.clear()
     dealerCards.clear()
