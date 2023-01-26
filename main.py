@@ -75,8 +75,8 @@ userCards = []
 dealerCards = []
 userTotal = 0
 dealerTotal = 0
-shouldContinueGame = True
 shouldContinueRound = True
+shouldContinueGame = True
 
 # Function - get a card
 def getCard():
@@ -113,11 +113,11 @@ while shouldContinueGame:
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
     dealerTotal = calcCardTotal(dealerCards)
-    userTotal = calcCardTotal(userCards)    
+    # userTotal = calcCardTotal(userCards)    
+    userTotal = 0    
     # 0 = blackjack
     if userTotal == 0:
         print(f'Your cards: {userCards} -> Blackjack | 21')
-        print("You win!")
         shouldContinueRound = False
 
     while shouldContinueRound:
@@ -140,7 +140,7 @@ while shouldContinueGame:
             shouldContinueRound = False
 
     print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
-    if userTotal < 21 and userTotal > 0:
+    if userTotal <= 21 and len(userCards) > 2:
         if dealerTotal < 17:
             dealerCards.append(getCard())
             dealerTotal = calcCardTotal(dealerCards)
@@ -155,8 +155,10 @@ while shouldContinueGame:
             print("You win! Your hand is greater than the dealer's.")
         elif dealerTotal == userTotal:
             print("It's a draw! Your hand equals the dealer's.") 
-    else:
+    if userTotal > 21:
         print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
+    if userTotal == 0:
+        print("You win!")
 
     if input("\nWould you like to play another round (yes/no): ") == "yes":
         shouldContinueRound = resetGame()
