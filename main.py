@@ -95,14 +95,19 @@ def calcCardTotal(cardsInHand):
         if cardTotal == 21:
             userOutcome = "blackjack"
             shouldContinueRound = False
-            return cardTotal
         if 11 in cardsInHand and cardTotal > 21:
             print("You were dealt an ace which will count as 1 instead of 11 to avoid going over 21.")
             cardsInHand.append(1)
-            cardsInHand.remove(11)      
-            return cardTotal
-
+            cardsInHand.remove(11)
     return cardTotal
+
+# Function - reset game
+def resetGame():
+    userCards = []
+    dealCards = []
+    userOutcome = ""
+    dealerOutcome = ""
+    shouldContinueRound = True
 
 while shouldContinueGame:
     dealCards()
@@ -117,7 +122,7 @@ while shouldContinueGame:
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
         if userChoice.lower() == "hit" and userOutcome != "blackjack":
             userCards.append(getCard())
-            calcCardTotal(userCards)
+            userTotal = calcCardTotal(userCards)
 
             if userTotal == 21:
                 print(f'\nYour cards {userCards} equal 21.')
@@ -150,9 +155,7 @@ while shouldContinueGame:
     else:
         print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
 
-    if input("\nWould you like to play another round (yes/no): ") == "no":
-        shouldContinueGame = False
+    if input("\nWould you like to play another round (yes/no): ") == "yes":
+        resetGame()
     else:
-        userOutcome = ""
-        dealerOutcome = ""
-        shouldContinueRound = True
+        shouldContinueGame = False
