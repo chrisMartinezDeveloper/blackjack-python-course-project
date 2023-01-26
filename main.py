@@ -73,8 +73,8 @@ print(logo)
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 userCards = []
 dealerCards = []
-userOutcome = ""
 userTotal = 0
+dealerTotal = 0
 shouldContinueGame = True
 shouldContinueRound = True
 
@@ -89,12 +89,11 @@ def dealCards():
         dealerCards.append(getCard())
 
 # Function - adds up the cards in hand
-def calcCardTotal(cardsInHand):
+def calcCardTotal(cardsInHand, keepGoing):
     cardTotal = sum(cardsInHand)
     if len(cardsInHand) == 2:
         if cardTotal == 21:
-            userOutcome = "blackjack"
-            shouldContinueRound = False
+            return 0
         if 11 in cardsInHand and cardTotal > 21:
             print("You were dealt an ace which will count as 1 instead of 11 to avoid going over 21.")
             cardsInHand.append(1)
@@ -102,27 +101,31 @@ def calcCardTotal(cardsInHand):
     return cardTotal
 
 # Function - reset game
-def resetGame():
+def resetGame(keepGoing):
     userCards.clear()
     dealerCards.clear()
     userTotal = 0
     dealerTotal = 0
-    userOutcome = ""
-    shouldContinueRound = True
-    print(f'Function: {shouldContinueRound}')
+    keepGoing = True
 
 while shouldContinueGame:
     dealCards()
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
-    print(f'While Loop: {shouldContinueRound}')
-    shouldContinueRound = True
     while shouldContinueRound:
-        userTotal = calcCardTotal(userCards)
-        print(f'Your cards: {userCards} -> {userTotal}')
+        dealerTotal = calcCardTotal(dealerCards)
+        userTotal = calcCardTotal(userCards)    
+        # 0 = blackjack
+        if userTotal == 0:
+            print(f'Your cards: {userCards} -> Blackjack | 21')
+            print("You win!")
+            break
+        else:
+            print(f'Your cards: {userCards} -> {userTotal}')
+        
 
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
-        if userChoice.lower() == "hit" and userOutcome != "blackjack":
+        if userChoice.lower() == "hit":
             userCards.append(getCard())
             userTotal = calcCardTotal(userCards)
 
@@ -158,6 +161,6 @@ while shouldContinueGame:
         print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
 
     if input("\nWould you like to play another round (yes/no): ") == "yes":
-        resetGame()
+        resetGame(shouldContinueRound)
     else:
         shouldContinueGame = False
