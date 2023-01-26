@@ -144,7 +144,10 @@ while shouldContinueGame:
             print("The dealer must draw another card because his hand is less than 17.")
             print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
         
-        if dealerTotal > 21:
+        # 0 = blackjack
+        if dealerTotal == 0:
+            print("You lose! The dealer has Blackjack.")
+        elif dealerTotal > 21:
             print("You win! The dealer's hand is more than 21.")
         elif dealerTotal > userTotal:
             print("You lose! The dealer's hand is greater than yours.")
