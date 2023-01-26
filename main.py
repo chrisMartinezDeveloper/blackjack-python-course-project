@@ -74,7 +74,7 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 userCards = []
 dealerCards = []
 userOutcome = ""
-dealerOutcome = ""
+userTotal = 0
 shouldContinueGame = True
 shouldContinueRound = True
 
@@ -103,15 +103,14 @@ def calcCardTotal(cardsInHand):
 
 # Function - reset game
 def resetGame():
-    userCards = []
-    dealCards = []
+    userCards.clear()
+    dealerCards.clear()
+    userTotal = 0
     userOutcome = ""
-    dealerOutcome = ""
     shouldContinueRound = True
 
 while shouldContinueGame:
     dealCards()
-    userTotal = 0
 
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
