@@ -104,8 +104,6 @@ def calcCardTotal(cardsInHand):
 def resetGame():
     userCards.clear()
     dealerCards.clear()
-    userTotal = 0
-    dealerTotal = 0
     return True
 
 while shouldContinueGame:
@@ -113,8 +111,7 @@ while shouldContinueGame:
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
     dealerTotal = calcCardTotal(dealerCards)
-    # userTotal = calcCardTotal(userCards)    
-    userTotal = 0    
+    userTotal = calcCardTotal(userCards)    
     # 0 = blackjack
     if userTotal == 0:
         print(f'Your cards: {userCards} -> Blackjack | 21')
