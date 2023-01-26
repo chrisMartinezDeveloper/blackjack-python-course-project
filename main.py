@@ -133,14 +133,14 @@ while shouldContinueGame:
                 if input("Type 'stand', if you would like to stand: ") == "stand":
                     shouldContinueRound = False
             if userTotal > 21:
-                print(f'Your cards: {userCards} -> {userTotal}')
+                print(f'\nYour cards: {userCards} -> {userTotal}')
                 shouldContinueRound = False
         if userChoice.lower() == "stand":
+            print(f'\nYour cards: {userCards} -> {userTotal}')
             shouldContinueRound = False
-            print(f'Your cards: {userCards} -> {userTotal}')
 
-    print(f'\nDealer\'s cards: {dealerCards} -> {dealerTotal}')
-    if userTotal <= 21 and userTotal > 0:
+    print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
+    if userTotal < 21 and userTotal > 0:
         if dealerTotal < 17:
             dealerCards.append(getCard())
             dealerTotal = calcCardTotal(dealerCards)
