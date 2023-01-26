@@ -106,14 +106,17 @@ def resetGame():
     userCards.clear()
     dealerCards.clear()
     userTotal = 0
+    dealerTotal = 0
     userOutcome = ""
     shouldContinueRound = True
+    print(f'Function: {shouldContinueRound}')
 
 while shouldContinueGame:
     dealCards()
-
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
+    print(f'While Loop: {shouldContinueRound}')
+    shouldContinueRound = True
     while shouldContinueRound:
         userTotal = calcCardTotal(userCards)
         print(f'Your cards: {userCards} -> {userTotal}')
