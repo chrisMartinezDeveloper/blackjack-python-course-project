@@ -153,7 +153,7 @@ while shouldContinueGame:
         userChoice = input("\nType 'hit' to take a card\nType 'stand' to end the round: ")
         if userChoice.lower() == "hit":
             userCards.append(getCard())
-            userTotal = 21
+            userTotal = calcCardTotal(userCards)
 
             if userTotal == 21:
                 print(f'\nYour cards {userCards} equal 21.')
