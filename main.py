@@ -171,30 +171,6 @@ while shouldContinueGame:
     else:
         print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
     
-    # if userTotal <= 21 and userTotal > 0:
-    #     while dealerTotal < 17 and dealerTotal > 0:
-    #         dealerCards.append(getCard())
-    #         dealerTotal = calcCardTotal(dealerCards)
-    #         print("The dealer must draw another card because his hand is less than 17.")
-    #         print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
-        
-    #     # 0 = blackjack
-    #     if dealerTotal == 0:
-    #         print("You lose! The dealer has Blackjack.")
-    #     elif dealerTotal > 21:
-    #         print("You win! The dealer's hand is more than 21.")
-    #     elif dealerTotal > userTotal:
-    #         print("You lose! The dealer's hand is greater than yours.")
-    #     elif dealerTotal < userTotal:
-    #         print("You win! Your hand is greater than the dealer's.")
-    #     elif dealerTotal == userTotal:
-    #         print("It's a draw! Your hand equals the dealer's.") 
-    # if userTotal > 21:
-    #     print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
-    # if userTotal == 0 and dealerTotal != 0:
-    #     print("You win!")
-    # if userTotal == 0 and dealerTotal == 0:
-    #     print("Its a draw! Both you and the dealer have Blackjack.")
     compare(dealerTotal, userTotal)
 
     if input("\nWould you like to play another round (yes/no): ") == "yes":
