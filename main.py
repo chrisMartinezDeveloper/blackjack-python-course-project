@@ -106,12 +106,39 @@ def resetGame():
     dealerCards.clear()
     return True
 
+# Function - compare the Dealer's total with the Player's total
+def compare(dlrTotal, usrTotal):
+    if usrTotal <= 21 and usrTotal > 0:
+        while dlrTotal < 17 and dlrTotal > 0:
+            dealerCards.append(getCard())
+            dlrTotal = calcCardTotal(dealerCards)
+            print("The dealer must draw another card because his hand is less than 17.")
+            print(f'Dealer\'s cards: {dealerCards} -> {dlrTotal}')
+        
+        # 0 = blackjack
+        if dlrTotal == 0:
+            print("You lose! The dealer has Blackjack.")
+        elif dlrTotal > 21:
+            print("You win! The dealer's hand is more than 21.")
+        elif dlrTotal > usrTotal:
+            print("You lose! The dealer's hand is greater than yours.")
+        elif dlrTotal < usrTotal:
+            print("You win! Your hand is greater than the dealer's.")
+        elif dlrTotal == usrTotal:
+            print("It's a draw! Your hand equals the dealer's.") 
+    if usrTotal > 21:
+        print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
+    if usrTotal == 0 and dlrTotal != 0:
+        print("You win!")
+    if usrTotal == 0 and dlrTotal == 0:
+        print("Its a draw! Both you and the dealer have Blackjack.")
+
 while shouldContinueGame:
     dealCards()
     print(f'The dealer\'s cards: [{dealerCards[0]}, X]')
 
-    # dealerTotal = calcCardTotal(dealerCards)
-    dealerTotal = 0
+    dealerTotal = calcCardTotal(dealerCards)
+    # dealerTotal = 0
     userTotal = calcCardTotal(userCards)    
     # 0 = blackjack
     if userTotal == 0:
@@ -144,30 +171,31 @@ while shouldContinueGame:
     else:
         print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
     
-    if userTotal <= 21 and userTotal > 0:
-        while dealerTotal < 17 and dealerTotal > 0:
-            dealerCards.append(getCard())
-            dealerTotal = calcCardTotal(dealerCards)
-            print("The dealer must draw another card because his hand is less than 17.")
-            print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
+    # if userTotal <= 21 and userTotal > 0:
+    #     while dealerTotal < 17 and dealerTotal > 0:
+    #         dealerCards.append(getCard())
+    #         dealerTotal = calcCardTotal(dealerCards)
+    #         print("The dealer must draw another card because his hand is less than 17.")
+    #         print(f'Dealer\'s cards: {dealerCards} -> {dealerTotal}')
         
-        # 0 = blackjack
-        if dealerTotal == 0:
-            print("You lose! The dealer has Blackjack.")
-        elif dealerTotal > 21:
-            print("You win! The dealer's hand is more than 21.")
-        elif dealerTotal > userTotal:
-            print("You lose! The dealer's hand is greater than yours.")
-        elif dealerTotal < userTotal:
-            print("You win! Your hand is greater than the dealer's.")
-        elif dealerTotal == userTotal:
-            print("It's a draw! Your hand equals the dealer's.") 
-    if userTotal > 21:
-        print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
-    if userTotal == 0 and dealerTotal != 0:
-        print("You win!")
-    if userTotal == 0 and dealerTotal == 0:
-        print("Its a draw! Both you and the dealer have Blackjack.")
+    #     # 0 = blackjack
+    #     if dealerTotal == 0:
+    #         print("You lose! The dealer has Blackjack.")
+    #     elif dealerTotal > 21:
+    #         print("You win! The dealer's hand is more than 21.")
+    #     elif dealerTotal > userTotal:
+    #         print("You lose! The dealer's hand is greater than yours.")
+    #     elif dealerTotal < userTotal:
+    #         print("You win! Your hand is greater than the dealer's.")
+    #     elif dealerTotal == userTotal:
+    #         print("It's a draw! Your hand equals the dealer's.") 
+    # if userTotal > 21:
+    #     print(f'Your cards {userCards} are greater than 21.\nYou lose this round.')
+    # if userTotal == 0 and dealerTotal != 0:
+    #     print("You win!")
+    # if userTotal == 0 and dealerTotal == 0:
+    #     print("Its a draw! Both you and the dealer have Blackjack.")
+    compare(dealerTotal, userTotal)
 
     if input("\nWould you like to play another round (yes/no): ") == "yes":
         shouldContinueRound = resetGame()
